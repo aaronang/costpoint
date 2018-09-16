@@ -28,7 +28,7 @@ if (
 
 program
   .name("costpoint")
-  .version("0.2.1")
+  .version("0.3.0")
   .description("A command line utility for Costpoint.");
 
 program
@@ -47,6 +47,31 @@ program
     const cp = await costpoint.launch(url, username, password, system);
     await cp.set(line, day, hours);
     await cp.save();
+    cp.display();
+    await cp.close();
+  });
+
+program
+  .command("setm <values...>")
+  .description("Set hours for multiple project lines and days.")
+  .usage("<line> <day> <hours>, <line> <day> <hours>, ...")
+  .action(async xs => {
+    xs = xs.map(x => x.replace(/,/g, "")).filter(Boolean);
+
+    if (xs.length % 3 !== 0) {
+      console.error(chalk.red("Not enough values provided."));
+      process.exit(1);
+    }
+
+    const cp = await costpoint.launch(url, username, password, system);
+    for (let i = 0; i < xs.length; i += 3) {
+      const line = xs[i];
+      const day = xs[i + 1];
+      const hours = xs[i + 2];
+      await cp.set(line, day, hours);
+      await cp.save();
+    }
+
     cp.display();
     await cp.close();
   });
