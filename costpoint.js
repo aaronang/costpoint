@@ -1,3 +1,5 @@
+"use strict";
+
 const moment = require("moment");
 const puppeteer = require("puppeteer");
 const Table = require("cli-table");

@@ -1,12 +1,12 @@
 {
-  "name": "botpoint",
+  "name": "costpoint",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "keywords": [],
+  "description": "A command line utility for Costpoint.",
+  "bin": "cli.js",
+  "keywords": [
+    "cli",
+    "costpoint"
+  ],
   "author": "Aaron Ang <awz.ang@gmail.com>",
   "license": "MIT",
   "dependencies": {

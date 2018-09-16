@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+"use strict";
+
 const costpoint = require("./costpoint");
 const program = require("commander");
 
