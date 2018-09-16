@@ -11,9 +11,30 @@ const username = process.env.COSTPOINT_USERNAME;
 const password = process.env.COSTPOINT_PASSWORD;
 const system = process.env.COSTPOINT_SYSTEM;
 
+if (typeof url === "undefined") {
+  console.error("COSTPOINT_URL is undefined.");
+}
+if (typeof username === "undefined") {
+  console.error("COSTPOINT_USERNAME is undefined.");
+}
+if (typeof password === "undefined") {
+  console.error("COSTPOINT_PASSWORD is undefined.");
+}
+if (typeof system === "undefined") {
+  console.error("COSTPOINT_SYSTEM is undefined.");
+}
+if (
+  typeof url === "undefined" ||
+  typeof username === "undefined" ||
+  typeof password === "undefined" ||
+  typeof system === "undefined"
+) {
+  process.exit(1);
+}
+
 program
   .name("costpoint")
-  .version("0.1.0")
+  .version("0.2.0")
   .description("A command line utility for Costpoint.");
 
 program

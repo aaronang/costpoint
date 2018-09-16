@@ -11,6 +11,14 @@ $ npm install --global costpoint
 ## Usage
 
 ```shellsession
+$ export COSTPOINT_USERNAME=01234.FIRST.LAST
+
+$ export COSTPOINT_PASSWORD=password
+
+$ export COSTPOINT_SYSTEM=EXAMPLECONFIG
+
+$ export COSTPOINT_URL=https://example-cp.costpointfoundations.com/cpweb/cploginform.htm
+
 $ costpoint --help
 
 Usage: costpoint [options] [command]
