@@ -1,5 +1,6 @@
 "use strict";
 
+const chalk = require("chalk");
 const moment = require("moment");
 const puppeteer = require("puppeteer");
 const Table = require("cli-table");
@@ -55,8 +56,8 @@ class Costpoint {
 
   async _launch() {
     this.browser = await puppeteer.launch({
-      defaultViewport: { width: 1920, height: 1080 }
-      // headless: false
+      defaultViewport: { width: 1920, height: 1080 },
+      headless: process.env.DEBUG === undefined
     });
     this.page = (await this.browser.pages()).pop();
   }
@@ -68,6 +69,19 @@ class Costpoint {
     await this.page.type("#CLIENT_PASSWORD", password);
     await this.page.type("#DATABASE", database);
     await this.page.click("#loginBtn");
+    try {
+      await this.page.waitForSelector("#loginBtn", {
+        hidden: true,
+        timeout: 10000
+      });
+    } catch (e) {
+      console.error(
+        chalk.red(
+          "Invalid login information. Make sure that COSTPOINT_URL, COSTPOINT_USERNAME, COSTPOINT_PASSWORD, COSTPOINT_SYSTEM are escaped correctly."
+        )
+      );
+      process.exit(1);
+    }
   }
 
   async _table() {
