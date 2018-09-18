@@ -28,7 +28,7 @@ if (
 
 program
   .name("costpoint")
-  .version("0.3.3")
+  .version("0.3.4")
   .description("A command line utility for Costpoint.");
 
 program
@@ -53,7 +53,7 @@ program
 
 program
   .command("setm <values...>")
-  .description("Set hours for multiple project lines and days.")
+  .description("set hours for multiple project lines and days")
   .usage("<line> <day> <hours>, <line> <day> <hours>, ...")
   .action(async xs => {
     xs = xs.map(x => x.replace(/,/g, "")).filter(Boolean);
