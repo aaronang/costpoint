@@ -119,7 +119,7 @@ $ costpoint setm 1 16 3, 2 16 2
 ### `add`
 
 ```shellsession
-➜ costpoint add XXXX.YYYY.ZZ
+$ costpoint add XXXX.YYYY.ZZ
 The following project has been successfully added:
 ┌──────┬─────────────┬──────────────┐
 │ Line │ Description │ Code         │
