@@ -54,6 +54,46 @@ class Costpoint {
     await this.page.waitForSelector("#pleaseWaitImage", { hidden: true });
   }
 
+  async add(code) {
+    await this.page.evaluate(() => {
+      const button = Array.from(document.querySelectorAll("#newBttn")).pop();
+      button.click();
+    });
+    await this.page.waitForSelector(`input[type="text"]:focus`, {
+      visible: true
+    });
+    await this.page.click(`input[type="text"]:focus`);
+    await this.page.type(`input[type="text"]:focus`, code);
+    await this.page.waitForSelector("#fldAutoCompleteDiv", { visible: true });
+    const invalid = await this.page.evaluate(
+      () =>
+        document.querySelector("#v10.fldAutoCEItem").textContent ===
+        "no values found"
+    );
+    if (invalid) {
+      console.error(chalk.red("Project code does not exist."));
+      process.exit(1);
+    }
+    await this.page.keyboard.press("Tab");
+    await this.page.waitFor(2000);
+    await this.page.waitForSelector("#pleaseWaitImage", { hidden: true });
+    const description = await this.page.evaluate(
+      () => document.querySelector("#LINE_DESC-_0_N").value
+    );
+    this.table.push([
+      this.table.length,
+      description,
+      ...Array(this.dates.length).fill("")
+    ]);
+    const table = new Table({
+      head: ["Line", "Description", "Code"],
+      colWidths: [6, 26, 14]
+    });
+    table.push([this.table.length - 1, description, code]);
+    console.log("The following project has been successfully added:");
+    console.log(table.toString());
+  }
+
   async _launch() {
     this.browser = await puppeteer.launch({
       defaultViewport: { width: 1920, height: 1080 },

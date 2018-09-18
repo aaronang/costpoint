@@ -76,4 +76,15 @@ program
     await cp.close();
   });
 
+program
+  .command("add <code>")
+  .description("add project code to timesheet")
+  .action(async code => {
+    const cp = await costpoint.launch(url, username, password, system);
+    await cp.add(code);
+    cp.display();
+    await cp.save();
+    await cp.close();
+  });
+
 program.parse(process.argv);
