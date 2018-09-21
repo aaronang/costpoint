@@ -69,9 +69,9 @@ program
       const day = xs[i + 1];
       const hours = xs[i + 2];
       await cp.set(line, day, hours);
-      await cp.save();
     }
 
+    await cp.save();
     cp.display();
     await cp.close();
   });
