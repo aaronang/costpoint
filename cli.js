@@ -28,7 +28,7 @@ if (
 
 program
   .name("costpoint")
-  .version("0.3.4")
+  .version("0.3.5")
   .description("A command line utility for Costpoint.");
 
 program
