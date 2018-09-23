@@ -9,6 +9,9 @@
   ],
   "author": "Aaron Ang <awz.ang@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=7.6.0"
+  },
   "dependencies": {
     "chalk": "^2.4.1",
     "cli-table": "^0.3.1",

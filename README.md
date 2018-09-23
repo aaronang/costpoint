@@ -1,4 +1,4 @@
-# Costpoint
+# Costpoint &middot; [![npm](https://img.shields.io/npm/v/costpoint.svg)](https://www.npmjs.com/package/costpoint) ![node](https://img.shields.io/node/v/costpoint.svg)
 
 A command line utility for Costpoint ⏱
 
