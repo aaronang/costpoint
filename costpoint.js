@@ -50,8 +50,14 @@ class Costpoint {
           ? await this.page.keyboard.press("Period")
           : await this.page.keyboard.press(x)
     );
-    await this.page.keyboard.press("Tab");
-    await this.page.waitForSelector("#pleaseWaitImage", { hidden: true });
+
+    const end = this.dates[this.dates.length - 1].date();
+    for (let i = 0; i <= end - day; i++) {
+      await this.page.keyboard.press("Tab");
+    }
+    await this.page.waitForResponse(response =>
+      response._request._url.includes("MasterServlet.cps")
+    );
   }
 
   async add(code) {
