@@ -27,7 +27,7 @@ class Costpoint {
 
   async save() {
     await this.page.keyboard.press("F5");
-    await this.page.waitForSelector("#pleaseWaitImage", { hidden: true });
+    await this._waitForResponse();
   }
 
   async close() {
@@ -55,9 +55,7 @@ class Costpoint {
     for (let i = 0; i <= end - day; i++) {
       await this.page.keyboard.press("Tab");
     }
-    await this.page.waitForResponse(response =>
-      response._request._url.includes("MasterServlet.cps")
-    );
+    await this._waitForResponse();
   }
 
   async add(code) {
@@ -81,8 +79,9 @@ class Costpoint {
       process.exit(1);
     }
     await this.page.keyboard.press("Tab");
-    await this.page.waitFor(2000);
-    await this.page.waitForSelector("#pleaseWaitImage", { hidden: true });
+    await this.page.waitFor(
+      () => document.querySelector("#LINE_DESC-_0_N").value !== ""
+    );
     const description = await this.page.evaluate(
       () => document.querySelector("#LINE_DESC-_0_N").value
     );
@@ -211,6 +210,14 @@ class Costpoint {
   async _skip() {
     await this.page.keyboard.press("Tab");
     await this.page.keyboard.press("Tab");
+  }
+
+  async _waitForResponse() {
+    await this.page.waitForResponse(
+      response =>
+        response.url().includes("MasterServlet.cps") &&
+        response.request().method() === "POST"
+    );
   }
 }
 
